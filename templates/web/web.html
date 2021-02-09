@@ -1,0 +1,30 @@
+{% extends 'all.html' %}
+{% block head %}
+<link href="/static/web/web.css" rel="stylesheet">
+{% endblock %}
+{% block logo %}
+<img id="logo" src="/static/web/logo.png">
+{% endblock %}
+{% block body %}
+
+<h2><code>metaL/min</code></h2>
+<h3>metaL: minimal implementation for <code>metaL/book</code> code samples</h3>
+
+(c) Dmitry Ponyatov &lt;<a href="mailto:dponyatov@gmail.com">dponyatov@gmail.com</a>&gt; 2020 MIT
+
+<ul>
+    <li> homoiconic interpreter engine
+    <li> in-memory object graph database
+    <li> interactive programming system
+</ul>
+
+<p>github: <a href="https://github.com/ponyatov/metaLpy">https://github.com/ponyatov/metaLpy</a></p>
+
+<p><code>metaL/book</code>: <a href="https://github.com/ponyatov/metaLbook">https://github.com/ponyatov/metaLbook</a></p>
+
+<p>manual: <a href="https://ponyatov.github.io/metaLpy/index.html">https://ponyatov.github.io/metaLpy/index.html</a></p>
+
+{% endblock %}
+{% block script %}
+<script src="/static/web/web.js"></script>
+{% endblock %}

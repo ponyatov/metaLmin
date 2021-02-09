@@ -76,6 +76,10 @@ class Object():
         self.nest += [that]
         return self
 
+    ## ========================================================== serialization
+
+    def json(self, cycle=[], depth=0): raise NotImplementedError(self.json)
+
     ## ======================================================= graph evaluation
 
     def eval(self, env): raise NotImplementedError(self.eval)

@@ -9,5 +9,5 @@ class Time(Object):
         self.time = self.now.strftime('%H:%M:%S')
         super().__init__(f'{self.date} {self.time}')
 
-    def json(self):
+    def json(self, cycle=[], depth=0):
         return {'date': self.date, 'time': self.time}

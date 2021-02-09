@@ -11,7 +11,8 @@ from flask_socketio import SocketIO
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-class Flask(Module): pass
+class Flask(Module):
+    pass
 
 class App(Web):
     def __init__(self, V):
@@ -31,11 +32,22 @@ class App(Web):
         self.app = self.flask.Flask(basename)
         self.app.config['SECRET_KEY'] = os.urandom(64)
 
+    # lookup object in global graph by URL-like path
+    def lookup(self, path):
+        ret = glob
+        for i in path.split('/'):
+            ret = ret[i]
+        return ret
+
     # classic http routing
     def init_routing(self):
         @self.app.route('/')
         def index():
             return self.flask.render_template('index.html', env=glob)
+
+        @self.app.route('/dump/<path:path>')
+        def dump(path):
+            return self.flask.render_template('dump.html', env=self.lookup(path))
 
     # SocketIO
     def init_socketio(self):

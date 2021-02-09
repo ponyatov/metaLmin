@@ -2,3 +2,4 @@
 .offline    { background: #F005; }
 #localtime  { position: absolute; bottom:0; right:0; }
 .navbar     { background: #1117; }
+#logo       { min-width: 5vw; max-width: 5vw; }
