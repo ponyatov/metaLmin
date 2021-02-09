@@ -37,7 +37,13 @@ $(PEP): $(S)
 
 .PHONY: test
 test: $(PYT) test_$(MODULE).py
-	$^ $@
+	$^
+
+.PHONY: repl
+repl: $(PY) $(MODULE).py
+	$(MAKE) pep test
+	$(PY) -i $(MODULE).py
+	$(MAKE) $@
 # / <section:all>
 # \ <section:install>
 .PHONY: install
