@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <title>{{env.head(test=True)}}</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/static/js/bootstrap.css" rel="stylesheet">
+        <!--[if lt IE 9]>
+            <script src="/static/js/html5shiv.js"></script>
+            <script src="/static/js/respond.js"></script>
+        <![endif]-->
+        <link rel="shortcut icon" href="/static/logo.png" type="image/png">
+        <link href="/static/css.css" rel="stylesheet">
+    </head>
+    <style>
+    </style>
+    <body>
+        <div class="container-fluid">
+            <nav class="navbar">
+                <div class="navbar-header">
+                    <img src="/static/logo.png">
+                </div>
+            </nav>
+            <pre id=dump>{{env.dump()}}</pre>
+            <pre id=localtime></pre>
+        </div>
+    </body>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/socket.io.min.js"></script>
+    <script src="/static/sio.js"></script>
+</html>

@@ -22,27 +22,33 @@ PEP          = $(BIN)/autopep8
 PYT          = $(BIN)/pytest
 # / <section:tool>
 # \ <section:src>
-M += $(MODULE).py test_$(MODULE).py
+M += $(shell find $(MODULE) -type f -regex ".+.py$$")
+T += test/__init__.py test/test_$(MODULE).py
+M += config.py repl.py web.py
 S += $(M) $(T) $(P)
 # / <section:src>
 # \ <section:all>
-.PHONY: all web
-all web: $(PY) $(MODULE).py
+.PHONY: all
+all: $(PY) $(MODULE).py
 	$^ $@
 
-.PHONY: pep
+.PHONY: web
+web: $(PY) web.py $(S)
+	$^
+
+.PHONY: $(PEP)
 pep: $(PEP)
 $(PEP): $(S)
 	$(PEP) --ignore=E26,E302,E401,E402 --in-place $? && touch $@
 
 .PHONY: test
-test: $(PYT) test_$(MODULE).py
-	$^
+test: $(PYT) $(T)
+	$< $@
 
 .PHONY: repl
-repl: $(PY) $(MODULE).py
+repl: $(PY) $(M)
 	$(MAKE) pep test
-	$(PY) -i $(MODULE).py
+	$(PY) -i repl.py
 	$(MAKE) $@
 # / <section:all>
 # \ <section:install>
@@ -58,6 +64,43 @@ update: $(OS)_update
 Linux_install Linux_update:
 	sudo apt update
 	sudo apt install -u `cat apt.txt`
+# \ <section:install/js>
+.PHONY: js
+js:	static/js/jquery.min.js static/js/socket.io.min.js \
+	static/js/bootstrap.css static/js/bootstrap.min.js \
+	static/js/html5shiv.js static/js/respond.js
+
+JQUERY_VER = 3.5.1
+JQUERY_JS  = https://code.jquery.com/jquery-$(JQUERY_VER).js
+static/js/jquery.min.js:
+	$(WGET) -O $@ $(JQUERY_JS)
+
+SOCKETIO_VER = 3.1.0
+static/js/socket.io.min.js: static/js/socket.io.min.js.map
+	$(WGET) -O $@ https://cdnjs.cloudflare.com/ajax/libs/socket.io/$(SOCKETIO_VER)/socket.io.min.js
+static/js/socket.io.min.js.map:	
+	$(WGET) -O $@ https://cdnjs.cloudflare.com/ajax/libs/socket.io/$(SOCKETIO_VER)/socket.io.min.js.map
+
+BOOTSTRAP_VER  = 4.6.0
+BOOTSTRAP_DIST = https://cdn.jsdelivr.net/npm/bootstrap@$(BOOTSTRAP_VER)/dist/js
+static/js/bootstrap.css:
+	$(WGET) -O $@ https://bootswatch.com/4/darkly/bootstrap.css
+static/js/bootstrap.min.js: static/js/bootstrap.bundle.min.js.map
+	$(WGET) -O $@ $(BOOTSTRAP_DIST)/bootstrap.bundle.min.js
+static/js/bootstrap.bundle.min.js.map:
+	$(WGET) -O $@ $(BOOTSTRAP_DIST)/bootstrap.bundle.min.js.map
+
+HTML5SHIV_VER = 3.7.3
+HTML5SHIV_URL = https://cdnjs.cloudflare.com/ajax/libs/html5shiv/$(HTML5SHIV_VER)/html5shiv-printshiv.js
+static/js/html5shiv.js:
+	$(WGET) -O $@ $(HTML5SHIV_URL)
+
+RESPOND_VER = 1.4.2
+RESPOND_URL = https://cdnjs.cloudflare.com/ajax/libs/respond.js/$(RESPOND_VER)/respond.js
+static/js/respond.js:
+	$(WGET) -O $@ $(RESPOND_URL)
+
+# / <section:install/js>
 # \ <section:install/py>
 $(PY) $(PIP):
 	python3 -m venv .

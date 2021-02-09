@@ -1,3 +1,5 @@
 ply
 xxhash
 Flask
+Flask-SocketIO
+watchdog

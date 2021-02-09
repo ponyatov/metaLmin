@@ -21,7 +21,7 @@
         "sequence": [
             "workbench.action.files.saveAll",
             {"command": "workbench.action.terminal.sendSequence","args": {"text":
-                "\u000D clear ; make repl \u000D"
+                "\u000Dexit()\u000D"
             }}]
     },
 ],
@@ -43,7 +43,6 @@
         "**/share/**": true, "**/*.pyc": true, "**/pyvenv.cfg": true,
         "**/.pytest_cache": true,
     /* / <section:exclude> */
-        "**/metaL/**": true,
         "**/docs/**": true,
         // "**/static/js/**": true,
 },
@@ -53,6 +52,7 @@
     /* / <section:assoc> */
 },
 "editor.tabSize": 4,
+"editor.rulers": [80],
 "workbench.tree.indent": "32",
 "browser-preview.startUrl": "127.0.0.1:12345/"
 /* / <section:mid> */

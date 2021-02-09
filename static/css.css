@@ -1,0 +1,4 @@
+.online     { background: #0F02; }
+.offline    { background: #F005; }
+#localtime  { position: absolute; bottom:0; right:0; }
+.navbar     { background: #1117; }
